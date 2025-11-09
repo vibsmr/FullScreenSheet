@@ -20,7 +20,7 @@ https://github.com/user-attachments/assets/73627b5d-e0e0-495c-b263-6ea05b626102
 SwiftUI's native `.fullScreenCover` doesn't support interactive dismissal gestures. While `.sheet` has pull-to-dismiss built-in, it doesn't offer a true full-screen presentation. FullScreenSheet bridges this gap by providing **two implementation options**:
 
 ### FullScreenSheet (Public API)
-- **Pull-to-dismiss gesture** that feels native and responsive
+- **Pull-to-dismiss gesture** that feels native and responsive, a recreation of what's availble privately
 - **Seamless scroll integration** - works with `List`, `ScrollView`, and `UICollectionView`
 - **Smart gesture coordination** - only activates when scrolled to the top and pulling down
 - **Custom backgrounds** that move in sync with the dismissal gesture
@@ -29,8 +29,7 @@ SwiftUI's native `.fullScreenCover` doesn't support interactive dismissal gestur
 
 ### FullScreenSheetPrivate (Private API)
 - **Apple Music-style presentation** - identical to the native Music app
-- **True full-screen with dimming effect** - underlying view sinks/dims during presentation
-- **Native swipe-to-dismiss** - uses UIKit's built-in gesture handling
+- **True full-screen with dimming effect** - underlying view sinks/dims during presentation (iOS 18<)
 - **Simpler integration** - works with standard `.sheet()` modifier
 - **Obfuscated private APIs** - reduces detection risk (but see warnings below)
 
