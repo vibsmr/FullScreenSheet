@@ -160,8 +160,7 @@ struct FullScreenSheetView<Content: View>: View {
 }
 
 // MARK: - Preview Examples
-
-@available(iOS 17.0, *)
+ 
 #Preview("List") {
     @Previewable @State var showSheet = false
 
@@ -182,8 +181,7 @@ struct FullScreenSheetView<Content: View>: View {
         }
     }
 }
-
-@available(iOS 17.0, *)
+ 
 #Preview("ScrollView") {
     @Previewable @State var showSheet = false
 
@@ -209,8 +207,7 @@ struct FullScreenSheetView<Content: View>: View {
         }
     }
 }
-
-@available(iOS 17.0, *)
+ 
 #Preview("ShapeStyle Background") {
     @Previewable @State var showSheet = false
 
@@ -226,8 +223,7 @@ struct FullScreenSheetView<Content: View>: View {
         }
     }
 }
-
-@available(iOS 17.0, *)
+ 
 #Preview("ViewBuilder Background") {
     @Previewable @State var showSheet = false
 
@@ -249,8 +245,7 @@ struct FullScreenSheetView<Content: View>: View {
         }
     }
 }
-
-@available(iOS 17.0, *)
+ 
 #Preview("Alignment Background") {
     @Previewable @State var showSheet = false
 
