@@ -12,12 +12,19 @@ let package = Package(
             name: "FullScreenSheet",
             targets: ["FullScreenSheet"]
         ),
+        .library(
+            name: "FullScreenSheetPrivate",
+            targets: ["FullScreenSheetPrivate"]
+        ),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "FullScreenSheet"
+        ),
+        .target(
+            name: "FullScreenSheetPrivate"
         ),
 
     ]
