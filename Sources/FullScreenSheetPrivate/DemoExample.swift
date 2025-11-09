@@ -66,8 +66,7 @@ import SwiftUI
                         Button {
                             isPresented = false
                         } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .symbolRenderingMode(.hierarchical)
+                            Image(systemName: "xmark")
                                 .foregroundStyle(.secondary)
                         }
                     }
