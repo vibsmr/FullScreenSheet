@@ -17,13 +17,22 @@ https://github.com/user-attachments/assets/73627b5d-e0e0-495c-b263-6ea05b626102
 
 ## Why FullScreenSheet?
 
-SwiftUI's native `.fullScreenCover` doesn't support interactive dismissal gestures. While `.sheet` has pull-to-dismiss built-in, it doesn't offer a true full-screen presentation. FullScreenSheet bridges this gap by providing:
+SwiftUI's native `.fullScreenCover` doesn't support interactive dismissal gestures. While `.sheet` has pull-to-dismiss built-in, it doesn't offer a true full-screen presentation. FullScreenSheet bridges this gap by providing **two implementation options**:
 
+### FullScreenSheet (Public API)
 - **Pull-to-dismiss gesture** that feels native and responsive
 - **Seamless scroll integration** - works with `List`, `ScrollView`, and `UICollectionView`
 - **Smart gesture coordination** - only activates when scrolled to the top and pulling down
 - **Custom backgrounds** that move in sync with the dismissal gesture
 - **Velocity-aware dismissal** - accounts for both drag distance and swipe speed
+- **100% App Store safe** - uses only public APIs
+
+### FullScreenSheetPrivate (Private API)
+- **Apple Music-style presentation** - identical to the native Music app
+- **True full-screen with dimming effect** - underlying view sinks/dims during presentation
+- **Native swipe-to-dismiss** - uses UIKit's built-in gesture handling
+- **Simpler integration** - works with standard `.sheet()` modifier
+- **Obfuscated private APIs** - reduces detection risk (but see warnings below)
 
 ## Installation
 
@@ -43,9 +52,24 @@ dependencies: [
 ]
 ```
 
+Then add the target you want to use:
+
+```swift
+.target(
+    name: "YourTarget",
+    dependencies: [
+        .product(name: "FullScreenSheet", package: "FullScreenSheet"),
+        // OR
+        .product(name: "FullScreenSheetPrivate", package: "FullScreenSheet")
+    ]
+)
+```
+
 ## Usage
 
-### Basic Usage
+### Option 1: FullScreenSheet (Public API - Recommended)
+
+Safe for App Store submission and uses only public APIs.
 
 ```swift
 import SwiftUI
@@ -67,11 +91,43 @@ struct ContentView: View {
 }
 ```
 
-### Custom Backgrounds
+### Option 2: FullScreenSheetPrivate (Private API - Use at Your Own Risk)
+
+Provides Apple Music-style presentation using private APIs.
+
+```swift
+import SwiftUI
+import FullScreenSheetPrivate
+
+struct ContentView: View {
+    @State private var showSheet = false
+
+    var body: some View {
+        Button("Show Sheet") {
+            showSheet = true
+        }
+        .sheet(isPresented: $showSheet) {
+            ScrollView {
+                // Your content here
+            }
+            .presentationFullScreen(.enabled)
+        }
+    }
+}
+```
+
+#### PresentationFullScreenBehavior Options
+
+- `.automatic` - Standard sheet behavior (default)
+- `.enabled` - Apple Music-style full-screen with interactive dismiss
+
+### Custom Backgrounds (FullScreenSheet only)
 
 **Important:** You must use `presentationFullScreenBackground` instead of the standard `.presentationBackground` modifier. This is required because the background needs to move in sync with the sheet during the pull-to-dismiss gesture. The standard modifier doesn't support this animation coordination.
 
-### Navigation Transitions
+**Note:** This only applies to the public `FullScreenSheet` target. When using `FullScreenSheetPrivate`, use standard SwiftUI presentation modifiers like `.presentationBackground()`.
+
+### Navigation Transitions (FullScreenSheet only)
 
 When using `.navigationTransition` with matched geometry effects (like `.zoom`), the custom pull-to-dismiss gesture is automatically disabled. This prevents conflicts between the gesture system and the navigation transition animations, allowing the matched geometry effect to work properly.
 
@@ -128,7 +184,35 @@ Circle()
 }
 ```
 
-## How It Works
+## About Private APIs (FullScreenSheetPrivate)
+
+The `FullScreenSheetPrivate` target uses private APIs to achieve Apple Music-style presentation behavior.
+
+### Implementation Details
+
+This target uses the following private APIs on `UISheetPresentationController`:
+- `_wantsFullScreen` - Enables true full-screen presentation mode with dimming effect
+- `_allowsInteractiveDismissWhenFullScreen` - Allows swipe-to-dismiss from full-screen state
+
+### Obfuscation
+
+The private API strings are **obfuscated at compile-time** using the [Obfuscate](https://github.com/Aeastr/Obfuscate) macro. This converts the strings to base64-encoded byte arrays, reducing visibility during static analysis.
+
+### Important Notes
+
+1. **App Store Review** - Private API usage may be detected during App Store review, even with obfuscation
+2. **No Guarantees** - Obfuscation cannot guarantee successful App Store submission
+3. **Breaking Changes** - Private APIs can change or be removed in any iOS update without warning
+4. **Use at Your Own Risk** - You are responsible for any consequences of using this in your applications
+
+### Choose What Works for You
+
+- **FullScreenSheet** - Public API implementation, safe for all use cases
+- **FullScreenSheetPrivate** - Private API implementation with Apple Music-style presentation
+
+Both targets are provided so you can choose the approach that best fits your needs.
+
+## How It Works (FullScreenSheet - Public API)
 
 FullScreenSheet uses a sophisticated gesture coordination system to provide smooth, native-feeling interactions:
 

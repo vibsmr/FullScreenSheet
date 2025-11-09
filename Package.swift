@@ -17,6 +17,9 @@ let package = Package(
             targets: ["FullScreenSheetPrivate"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/Aeastr/Obfuscate", exact: "1.0.0")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
@@ -24,7 +27,10 @@ let package = Package(
             name: "FullScreenSheet"
         ),
         .target(
-            name: "FullScreenSheetPrivate"
+            name: "FullScreenSheetPrivate",
+            dependencies: [
+                .product(name: "Obfuscate", package: "Obfuscate")
+            ]
         ),
 
     ]

@@ -1,4 +1,5 @@
 import SwiftUI
+import Obfuscate
 
 // MARK: - Presentation Full Screen Behavior
 
@@ -56,8 +57,8 @@ private final class SheetConfiguratorViewController: UIViewController {
     }
 
     private func applyPrivateAPI(to sheet: UISheetPresentationController) {
-        sheet.setValue(true, forKey: "wantsFullScreen")
-        sheet.setValue(true, forKey: "allowsInteractiveDismissWhenFullScreen")
+        sheet.setValue(true, forKey: #Obfuscate("wantsFullScreen"))
+        sheet.setValue(true, forKey: #Obfuscate("allowsInteractiveDismissWhenFullScreen"))
     }
 }
 
