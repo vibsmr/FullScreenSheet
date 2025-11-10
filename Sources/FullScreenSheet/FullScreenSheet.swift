@@ -23,6 +23,7 @@ public extension View {
     ///
     /// - Parameters:
     ///   - isPresented: A binding that controls the presentation state of the sheet.
+    ///   - onDismiss: An optional closure to execute when the sheet is dismissed.
     ///   - content: A view builder that creates the content to display in the sheet.
     ///
     /// - Note: Use ``presentationFullScreenBackground(_:)`` to customize the sheet's background.
@@ -33,11 +34,43 @@ public extension View {
     @ViewBuilder
     func fullScreenSheet<Content: View>(
         isPresented: Binding<Bool>,
+        onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View {
         self
-            .fullScreenCover(isPresented: isPresented) {
+            .fullScreenCover(isPresented: isPresented, onDismiss: onDismiss) {
                 FullScreenSheetView(content: content)
+            }
+    }
+
+    /// Presents a full-screen sheet using an identifiable item.
+    ///
+    /// This modifier wraps your content in a full-screen cover that can be dismissed by
+    /// pulling down from the top. It works seamlessly with scrollable content like `List`,
+    /// `ScrollView`, and `UICollectionView`.
+    ///
+    /// - Parameters:
+    ///   - item: A binding to an optional identifiable value that controls the presentation.
+    ///           When the item is non-nil, the sheet is presented. When it becomes nil, the sheet is dismissed.
+    ///   - onDismiss: An optional closure to execute when the sheet is dismissed.
+    ///   - content: A view builder that receives the unwrapped item and creates the content to display.
+    ///
+    /// - Note: Use ``presentationFullScreenBackground(_:)`` to customize the sheet's background.
+    ///
+    /// - Important: When using `.navigationTransition` for matched geometry effects, the custom
+    ///   pull-to-dismiss gesture is automatically disabled to prevent conflicts with the
+    ///   navigation transition animation.
+    @ViewBuilder
+    func fullScreenSheet<Item: Identifiable, Content: View>(
+        item: Binding<Item?>,
+        onDismiss: (() -> Void)? = nil,
+        @ViewBuilder content: @escaping (Item) -> Content
+    ) -> some View {
+        self
+            .fullScreenCover(item: item, onDismiss: onDismiss) { unwrappedItem in
+                FullScreenSheetView {
+                    content(unwrappedItem)
+                }
             }
     }
 }
