@@ -6,7 +6,7 @@
 </div>
 
 <p align="center">
-  <a href="https://developer.apple.com/ios/"><img src="https://img.shields.io/badge/iOS-15%2B-purple.svg" alt="iOS 15+"></a>
+  <a href="https://developer.apple.com/ios/"><img src="https://img.shields.io/badge/iOS-18%2B-purple.svg" alt="iOS 18+"></a>
   <a href="https://swift.org/"><img src="https://img.shields.io/badge/Swift-6.0-orange.svg" alt="Swift 6.2"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT"></a>
 </p>
